@@ -1,56 +1,77 @@
-import java.util.stream.IntStream;
-
 public class Square {
 
-  private int value = 0;
 
-  private boolean[] pMarks = new boolean[] {true,true,true,true,true,true,
-      true,true,true};
+  // Fields
+  // Value is a number between 1 and 9, 0 if the square is empty
+  private final int value;
+  // The possible entries for that square
+  private boolean[] pMarks;
+  // The number of pencil marks
+  private int numPMarks;
 
-  private int numPMarks = 9;
 
-  public Square() {}
+  // Constructors
+  // Creates an empty square
+  public Square() {
+    this.value= 0;
+    this.pMarks = new boolean[]{true, true, true, true, true, true, true,
+        true, true};
+    this.numPMarks = 9;
+  }
 
+  // Creates a square containing a value
   public Square(int value) {
+    assert value >= 1 && value <= 9 : "value must be between 1 and 9";
     this.value = value;
+    this.pMarks = new boolean[]{false, false, false, false, false, false,
+        false, false, false};
+    this.numPMarks = 0;
   }
 
 
-  private int value() {
-    assert 1 <= this.value && this.value <= 9 : "square must have a value "
-        + "between 1 and 9";
+  // Methods
+  // This method simply helps to debug.
+  private void printAll() {
+    System.out.println("The Value is = " + value + ", number of pencilMarks: "
+        + "" + numPMarks);
+    System.out.print("{");
+    for (boolean pMark : pMarks) {
+      System.out.println(pMark + ", ");
+    }
+  }
+
+  public int value() {
     return this.value;
   }
 
-  private boolean isEmpty() {
-    boolean result = this.value == 0;
-    return result;
+  public boolean isEmpty() {
+    return this.value == 0;
   }
 
-  public int getNumPMarks() {
-    return this.numPMarks;
+  public boolean hasUniquePMark() {
+    return numPMarks == 1;
   }
 
-  private boolean hasUniquePMark() {
-    boolean result = numPMarks == 1;
-    return result;
+  public int uniquePMark() {
+    assert hasUniquePMark() : "must have only one pencil mark";
+    for (int i = 0; i < pMarks.length; i++) {
+      if (pMarks[i]) {
+        return i + 1;
+      }
+    }
+    return 0; // will never reach here because of the assertion.
   }
 
-  private int uniquePMark() {
-    if (hasUniquePMark()) {
-      value();
+  public void removePMarkifThere(int n) {
+    assert 0 <= n && n <= 9;
+    if (n > 0 && pMarks[n - 1]) {
+      pMarks[n - 1] = false;
+      numPMarks--;
     }
   }
 
-  private void removePMarkifThere(int n) {
-    if () {
-      //change numpmarks in here
-
-    }
-  }
-
-  private String toString() {
-
+  public void print() {
+    System.out.print(value + " ");
   }
 }
 
