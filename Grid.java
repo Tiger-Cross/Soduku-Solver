@@ -88,7 +88,7 @@ public class Grid {
   }
 
   private void removeInBlock(int num, int row, int col) {
-    int startRow = startIndex(row); //TODO:
+    int startRow = startIndex(row);
     int startCol = startIndex(col);
     for (int i = startRow; i <= startRow + 2; i++) {
       for (int j = startCol; j <= startCol + 2; j++) {
